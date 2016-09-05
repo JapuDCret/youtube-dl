@@ -41,7 +41,7 @@ class CrunchyrollBaseIE(InfoExtractor):
         if username is None:
             return
         self.report_login()
-        login_url = 'https://www.crunchyroll.com/?a=formhandler'
+        login_url = 'http://www.crunchyroll.com/?a=formhandler'
         data = urlencode_postdata({
             'formname': 'RpcApiUser_Login',
             'name': username,
@@ -58,7 +58,7 @@ class CrunchyrollBaseIE(InfoExtractor):
         request = (url_or_request if isinstance(url_or_request, compat_urllib_request.Request)
                    else sanitized_Request(url_or_request))
         # Accept-Language must be set explicitly to accept any language to avoid issues
-        # similar to https://github.com/rg3/youtube-dl/issues/6797.
+        # similar to http://github.com/rg3/youtube-dl/issues/6797.
         # Along with IP address Crunchyroll uses Accept-Language to guess whether georestriction
         # should be imposed or not (from what I can see it just takes the first language
         # ignoring the priority and requires it to correspond the IP). By the way this causes
@@ -75,14 +75,14 @@ class CrunchyrollBaseIE(InfoExtractor):
         # > This content may be inappropriate for some people.
         # > Are you sure you want to continue?
         # since it's not disabled by default in crunchyroll account's settings.
-        # See https://github.com/rg3/youtube-dl/issues/7202.
+        # See http://github.com/rg3/youtube-dl/issues/7202.
         qs['skip_wall'] = ['1']
         return compat_urlparse.urlunparse(
             parsed_url._replace(query=compat_urllib_parse_urlencode(qs, True)))
 
 
 class CrunchyrollIE(CrunchyrollBaseIE):
-    _VALID_URL = r'https?://(?:(?P<prefix>www|m)\.)?(?P<url>crunchyroll\.(?:com|fr)/(?:media(?:-|/\?id=)|[^/]*/[^/?&]*?)(?P<video_id>[0-9]+))(?:[/?&]|$)'
+    _VALID_URL = r'http?://(?:(?P<prefix>www|m)\.)?(?P<url>crunchyroll\.(?:com|fr)/(?:media(?:-|/\?id=)|[^/]*/[^/?&]*?)(?P<video_id>[0-9]+))(?:[/?&]|$)'
     _TESTS = [{
         'url': 'http://www.crunchyroll.com/wanna-be-the-strongest-in-the-world/episode-1-an-idol-wrestler-is-born-645513',
         'info_dict': {
@@ -106,7 +106,7 @@ class CrunchyrollIE(CrunchyrollBaseIE):
             'ext': 'flv',
             'title': 'Culture Japan Episode 1 – Rebuilding Japan after the 3.11',
             'description': 'md5:2fbc01f90b87e8e9137296f37b461c12',
-            'thumbnail': 're:^https?://.*\.jpg$',
+            'thumbnail': 're:^http?://.*\.jpg$',
             'uploader': 'Danny Choo Network',
             'upload_date': '20120213',
         },
@@ -121,7 +121,7 @@ class CrunchyrollIE(CrunchyrollBaseIE):
             'ext': 'mp4',
             'title': 'Re:ZERO -Starting Life in Another World- Episode 5 – The Morning of Our Promise Is Still Distant',
             'description': 'md5:97664de1ab24bbf77a9c01918cb7dca9',
-            'thumbnail': 're:^https?://.*\.jpg$',
+            'thumbnail': 're:^http?://.*\.jpg$',
             'uploader': 'TV TOKYO',
             'upload_date': '20160508',
         },
@@ -419,7 +419,7 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
 
 class CrunchyrollShowPlaylistIE(CrunchyrollBaseIE):
     IE_NAME = 'crunchyroll:playlist'
-    _VALID_URL = r'https?://(?:(?P<prefix>www|m)\.)?(?P<url>crunchyroll\.com/(?!(?:news|anime-news|library|forum|launchcalendar|lineup|store|comics|freetrial|login))(?P<id>[\w\-]+))/?(?:\?|$)'
+    _VALID_URL = r'http?://(?:(?P<prefix>www|m)\.)?(?P<url>crunchyroll\.com/(?!(?:news|anime-news|library|forum|launchcalendar|lineup|store|comics|freetrial|login))(?P<id>[\w\-]+))/?(?:\?|$)'
 
     _TESTS = [{
         'url': 'http://www.crunchyroll.com/a-bridge-to-the-starry-skies-hoshizora-e-kakaru-hashi',
